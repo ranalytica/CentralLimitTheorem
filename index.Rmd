@@ -1,0 +1,82 @@
+---
+title: "Exponential Distribution vs. Central Limit Theorem"
+author: "Richard Nacianceno"
+date: "5/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Environment
+
+```{r Envir, message=FALSE}
+library(tidyverse)
+library(glue)
+library(matrixStats)
+downloadDate <- date()
+
+glue("Simulation date is {downloadDate}")
+sessionInfo()
+```
+
+### About
+
+In this project we will investigate the exponential distribution in R and compare it with the Central Limit Theorem. The exponential distribution can be simulated in R with rexp(n, lambda) where lambda is the rate parameter. The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. Set lambda = 0.2 for all of the simulations. We will investigate the distribution of averages of 40 exponentials. Note that you will need to do a thousand simulations. 
+
+Illustrate via simulation and associated explanatory text the properties of the distribution of the mean of 40 exponentials. You should
+
+1. Show the sample mean and compare it to the theoretical mean of the distribution.
+
+2. Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.
+
+3. Show that the distribution is approximately normal.
+
+## Simulation
+
+The exponential distribution can be simulated in R with rexp(n, lambda) where lambda is the rate parameter. The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. Set lambda = 0.2 for all of the simulations. We will investigate the distribution of averages of 40 exponentials.
+
+```{r SimulationDatasets}
+set.seed(420) # random number generator set at 420
+lambda <- .2 
+sampCol <- 40 # number of variables
+sampRow <- 1000  # number of observations
+
+expoDis <- matrix(rexp(n=sampRow*sampCol, rate = lambda), sampRow, sampCol)
+
+expoDF <- as.tibble(expoDis)
+# Converted it to a tibble to make it easier to visualize
+
+e_df <- expoDF %>% mutate("MEAN" = rowMeans(expoDis), "SD" = rowSds(expoDis), "SumCumu" = cumsum(MEAN)/(1:sampRow)) %>% select(MEAN, SD, SumCumu)
+```
+
+## 1. Sample mean vs. the theoretical mean of the distribution.
+
+```{r E_mean vs T_mean}
+e_mean <- mean(e_df$MEAN)
+t_mean <- 1/lambda
+res_df <- tibble(Result = c("Sample means", "Theoretical mean"),"Mean"=c(e_mean, t_mean))
+res_df
+```
+As we can see above, the exponential distribution mean is `r e_mean` is close to the CLT mean of `r t_mean`. The graph below shows the cumulative sum of the sample mean approaching the horizontal line valuing at 1/lambda which is our theoritcal mean.  
+
+```{r expo vs Theo}
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean) +
+geom_line(color="coral", size = 3) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+
+
+```
+Notes:
+
+1. Using (Freedman-Diaconis)[https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconis_rule] rule to select the width of the bins inside a histogram.  
+
+```{r error=TRUE}
+binhist <- hist(expoDF$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = expoDF, aes(x=MEAN,y=..density..)) 
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "purple")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+```
+
+
+
+
