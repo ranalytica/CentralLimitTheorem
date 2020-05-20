@@ -169,7 +169,8 @@ e_df %>% ggplot(aes(
 
 #### Hierarchical Clustering
 
-Explore the data with hcluster. 
+Explore the data with hcluster. Most of the code are taking from a previous class I took here at Coursera titled ["Exploratory Data Analysis"](https://bookdown.org/rdpeng/exdata/) by Dr. Roger Peng (follow the link to review his book).
+
 ```{r}
 hcDf <- as.data.frame(expoDis)
 x <- hcDf$V1[1:100]
@@ -184,7 +185,7 @@ dataframe <- data.frame(x=x, y=y)
 d<-dist(dataframe)
 ```
 
-
+The first minimum distance in two points are as follows:
 ```{r}
 rdistxy <- as.matrix(dist(dataframe))
 
@@ -196,7 +197,7 @@ ind <- which(rdistxy == min(rdistxy), arr.ind = TRUE)
 
 ind
 ```
-Plot two points closest together and draw a tree to merge these two points
+Plot the two points closest together and draw a tree to merge these two points
 ```{r}
 par(mfrow = c(1,2))
 plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
@@ -211,7 +212,7 @@ plot(cutDendro$lower[[63]], yaxt = "n", main ="Begin building tree")
 
 ```
 
-Continue building the tree. Below code will provide us the next min distance. 
+Continue building the tree. Below code will provide us the next minimum distance. 
 ```{r}
 nextmin <- rdistxy[order(rdistxy)][3]
 ind1 <- which(rdistxy==nextmin,arr.ind = TRUE)
@@ -233,7 +234,7 @@ plot(cutDendro$lower[[63]], yaxt = "n", main ="Begin building tree")
 plot(cutDendro$lower[[78]], yaxt = "n", main ="Begin building tree")
 ```
 
-Practicing Cluster Dendogram.  
+Eventually the more you branch out the tree you will come to this but there is simplier process to practicing Dendogram.    
 ```{r}
 hclustering <- data.frame(x=x, y=y) %>% dist %>% hclust
 plot(hclustering)
