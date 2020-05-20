@@ -1,0 +1,4 @@
+"0","hcluster <- dist(dataframe) %>% hclust"
+"0","dendro <- as.dendrogram(hcluster)"
+"0","cutDendro <-cut(dendro, h=hcluster$height[2])"
+"0","plot(cutDendro$lower[[11]], yaxt = ""n"", main =""Begin building tree"")"

@@ -1,0 +1,512 @@
+g2 <- ggplot(data = expoDF, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "purple")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCumu))
+g1 <- g1 + geom_hline(yintercept = (t_mean), color="coral", size = 3)
+g1 <- g1 + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+g1
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCumu))
+g1 <- g1 + geom_hline(yintercept = (t_mean), color="coral", size = 3)
+g1
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCumu))
+g1 <- g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+g1 <- g1 + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+g1
+set.seed(420) # random number generator set at 420
+lambda <- .2
+sampCol <- 40 # number of variables
+sampRow <- 1000  # number of observations
+expoDis <- matrix(rexp(n=sampRow*sampCol, rate = lambda), sampRow, sampCol)
+expoDF <- as.tibble(expoDis)
+# Converted it to a tibble to make it easier to visualize
+e_DF <- expoDF %>% mutate("MEAN" = rowMeans(expoDis), "SD" = rowSds(expoDis), "SumCumu" = cumsum(MEAN)/(1:sampRow)) %>% select(MEAN, SD, SumCumu)
+e_mean <- mean(e_DF$MEAN)
+t_mean <- 1/lambda
+res_df <- tibble(Result = c("Sample means", "Theoretical mean"),"Mean"=c(e_mean, t_mean))
+res_df
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCumu))
+g1 <- g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+g1 <- g1 + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+g1
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCumu))
+g1 <- g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+g1
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCumu))
+g1 <- g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCumu))
+g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+expoDF
+e_DF
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCumu))
+g1 <- g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+g1
+set.seed(420) # random number generator set at 420
+lambda <- .2
+sampCol <- 40 # number of variables
+sampRow <- 1000  # number of observations
+expoDis <- matrix(rexp(n=sampRow*sampCol, rate = lambda), sampRow, sampCol)
+expoDF <- as.tibble(expoDis)
+# Converted it to a tibble to make it easier to visualize
+e_df <- expoDF %>% mutate("MEAN" = rowMeans(expoDis), "SD" = rowSds(expoDis), "SumCumu" = cumsum(MEAN)/(1:sampRow)) %>% select(MEAN, SD, SumCumu)
+e_mean <- mean(e_df$MEAN)
+t_mean <- 1/lambda
+res_df <- tibble(Result = c("Sample means", "Theoretical mean"),"Mean"=c(e_mean, t_mean))
+res_df
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCu))+ g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+View(e_df)
+g1 <- ggplot(data=e_DF, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+g1 <- ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+g1 <- ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+g <- ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean, color="coral", size = 3)
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean, color="coral", size = 3) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean) +
+geom_line(color="coral", size = 3) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean) +
+geom_line(color="coral", size = 3) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(glue)
+library(matrixStats)
+downloadDate <- date()
+glue("Simulation date is {downloadDate}")
+sessionInfo()
+set.seed(420) # random number generator set at 420
+lambda <- .2
+sampCol <- 40 # number of variables
+sampRow <- 1000  # number of observations
+expoDis <- matrix(rexp(n=sampRow*sampCol, rate = lambda), sampRow, sampCol)
+expoDF <- as.tibble(expoDis)
+# Converted it to a tibble to make it easier to visualize
+e_df <- expoDF %>% mutate("MEAN" = rowMeans(expoDis), "SD" = rowSds(expoDis), "SumCumu" = cumsum(MEAN)/(1:sampRow)) %>% select(MEAN, SD, SumCumu)
+e_mean <- mean(e_df$MEAN)
+t_mean <- 1/lambda
+res_df <- tibble(Result = c("Sample means", "Theoretical mean"),"Mean"=c(e_mean, t_mean))
+res_df
+set.seed(420) # random number generator set at 420
+lambda <- .2
+sampCol <- 40 # number of variables
+sampRow <- 1000  # number of observations
+expoDis <- matrix(rexp(n=sampRow*sampCol, rate = lambda), sampRow, sampCol)
+expoDF <- as.data.frame(expoDis)
+# Converted it to a tibble to make it easier to visualize
+e_df <- expoDF %>% mutate("MEAN" = rowMeans(expoDis), "SD" = rowSds(expoDis), "SumCumu" = cumsum(MEAN)/(1:sampRow)) %>% select(MEAN, SD, SumCumu)
+e_df
+e_mean <- mean(e_df$MEAN)
+t_mean <- 1/lambda
+res_df <- tibble(Result = c("Sample means", "Theoretical mean"),"Mean"=c(e_mean, t_mean))
+res_df
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ g1 + geom_hline(yintercept = t_mean) +
+geom_line(color="coral", size = 3) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ geom_hline(yintercept = t_mean) +
+geom_line(color="coral", size = 3) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ geom_hline(yintercept = t_mean) +
+geom_line(size = .5) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ geom_hline(yintercept = t_mean) +
+geom_line(size = .5) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables") + ylim =(ymin = 2, ymax=6)
+?ylim
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ geom_hline(yintercept = t_mean) +
+geom_line(size = .5) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ geom_hline(yintercept = t_mean, col="red") +
+geom_line(size = .5) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+binhist <- hist(expoDF$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = expoDF, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "purple")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+binhist <- hist(as.numeric(expoDF$MEAN), plot=FALSE, breaks = "FD"))
+binhist <- hist(as.numeric(expoDF$MEAN), plot=FALSE, breaks = "FD")
+binhist <- hist(as.numeric(expoDF$MEAN), plot=FALSE, breaks = "FD")
+binhist <- hist(as.numeric(expoDF$MEAN), plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = expoDF, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "purple")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+binhist <- hist(as.numeric(expoDF$MEAN), plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "purple")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+binhist <- hist(e_df$MEAN), plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "purple")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "purple")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+set.seed(420) # random number generator set at 420
+lambda <- .2
+sampCol <- 40 # number of variables
+sampRow <- 1000  # number of observations
+expoDis <- matrix(rexp(n=sampRow*sampCol, rate = lambda), sampRow, sampCol)
+expoDF <- as.data.frame(expoDis)
+# Converted it to a tibble to make it easier to visualize
+e_df <- expoDF %>% mutate("MEAN" = rowMeans(expoDis), "SD" = rowSds(expoDis), "SumCumu" = cumsum(MEAN)/(1:sampRow)) %>% select(MEAN, SD, SumCumu)
+head(e_df)
+e_df
+e_df %>% mutate(VarCumu = cumsum((MEAN - e_mean)^2)/seq_along(MEAN-1))
+e_df <- e_df %>% mutate(VarCumu = cumsum((MEAN - e_mean)^2)/seq_along(MEAN-1))
+e_var <- var(e_df$VarCumu)
+e_df <- e_df %>% mutate(VarCumu = cumsum((MEAN - e_mean)^2)/seq_along(MEAN-1))
+e_var <- var(e_df$VarCumu)
+t_var <- (1/(lambda*sqrt(sampRow)))^2
+res_var_df <- tibble(Result = c("Sample variance", "Theoretical variance"),"Variance"=c(e_var, t_var))
+res_var_df
+t_var
+t_var <- (1/(lambda*sqrt(sampCol)))^2
+t_var
+e_var <- var(e_df$MEAN)
+e_va
+e_var
+res_var_df <- tibble(Result = c("Sample variance", "Theoretical variance"),"Variance"=c(e_var, t_var))
+res_var_df
+ggplot(data=e_df, aes(x = 1:sampRow, y = Variance))+ geom_hline(yintercept = t_var, col="red") +
+geom_line(size = .5) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+ggplot(data=e_df, aes(x = 1:sampRow, y = VarCumu))+ geom_hline(yintercept = t_var, col="red") +
+geom_line(size = .5) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
+ggplot(data=e_df, aes(x = 1:sampRow, y = VarCumu))+ geom_hline(yintercept = t_var, col="red") +
+geom_line(size = .5) + labs(x = "Number of Observations", y = "Cumulative Variance", title = "Sample Variance of 1000 Observation and 40 Variables")
+binhist <- hist(e_df$VarCumu, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=VarCumu,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(VarCumu), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+binhist <- hist(e_df$VarCumu, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=VarCumu,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(VarCumu), color = "blue")+geom_vline(xintercept = c(e_var, t_var), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+binhist$breaks
+binhist <- hist(e_df$VarCumu, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=VarCumu,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =30)+geom_density(aes(VarCumu), color = "blue")+geom_vline(xintercept = c(e_var, t_var), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+binhist <- hist(e_df$VarCumu, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=VarCumu,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(VarCumu), color = "blue")+geom_vline(xintercept = c(e_var, t_var), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+(1/ lambda)^2 /40
+t_var <- (1/ lambda)^2 /sampCol
+t_var
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")+boxplot(aes(x=MEAN))
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")+boxplot(aes(x=MEAN))
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")+stat_function(fun = dnorm, color = "magenta", args = list(mean=t-mean, sd = sqrt(t-var)))
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")+stat_function(fun = dnorm, color = "magenta", args = list(mean=t_mean, sd = sqrt(t-var)))
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")+stat_function(fun = dnorm, color = "magenta", args = list(mean=t_mean, sd = sqrt(t_var)))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")+geom_density(sampRow, mean =t_mean, sd =sqrt(t_mean))
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")+geom_density(sampRow, mean =t_mean, sd =sqrt(t_mean))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")+geom_density()
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..))
+g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
+install.packages("randomForest")
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(glue)
+library(matrixStats)
+downloadDate <- date()
+glue("Simulation date is {downloadDate}")
+sessionInfo()
+set.seed(420) # random number generator set at 420
+lambda <- .2
+sampCol <- 40 # number of variables
+sampRow <- 1000  # number of observations
+expoDis <- matrix(rexp(n=sampRow*sampCol, rate = lambda), sampRow, sampCol)
+expoDF <- as.data.frame(expoDis)
+# Converted it to a tibble to make it easier to visualize
+e_df <- expoDF %>% mutate(
+"MEAN" = rowMeans(expoDis),
+"SD" = rowSds(expoDis),
+"SumCumu" = cumsum(MEAN)/(1:sampRow)) %>%
+select(MEAN, SD, SumCumu)
+head(e_df)
+e_mean <- mean(e_df$MEAN)
+t_mean <- 1/lambda
+res_df <- tibble(
+Result = c("Sample means", "Theoretical mean"),
+"Mean"=c(e_mean, t_mean))
+res_df
+ggplot(data = e_df, aes(x = 1:sampRow, y = SumCumu)) +
+geom_hline(yintercept = t_mean, col = "red") +
+geom_line(size = .5) +
+labs(x = "Number of obs",
+y = "Cumulative mean",
+title = "Sample Means of 1000 Observations and 40 Variables") +
+geom_text(aes(0,t_mean,
+label = "theoretical mean = 1/lambda",
+hjust = -1,
+vjust =-1)) +
+ylim(c(3.5,5.5))
+e_df <- e_df %>% mutate(
+VarCumu = cumsum((MEAN - e_mean)^2)/seq_along(MEAN-1))
+head(e_df)
+e_var <- var(e_df$MEAN)
+t_var <- (1/(lambda*sqrt(sampCol)))^2
+res_var_df <- tibble(
+Result = c("Sample variance", "Theoretical variance"),
+"Variance" = c(e_var, t_var))
+res_var_df
+ggplot(data=e_df,
+aes(x = 1:sampRow,
+y = VarCumu))+
+geom_hline(yintercept = t_var,
+col="red") +
+geom_line(size = .5) +
+labs(x = "Number of Observations",
+y = "Cumulative Variance",
+title = "Sample Variances of 1000 Observations and 40 Variables")
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df,
+aes(x=MEAN))
+g2 <- g2 + geom_histogram(aes(y=..density..),
+fill="white",
+col="black",
+breaks =binhist$breaks) +
+geom_density(
+aes(MEAN),
+color = "blue") +
+geom_vline(
+xintercept = c(e_mean, t_mean),
+color = c("red", "yellow")) +
+labs(
+x= "Sample Means",
+y= "Density",
+title = "Histogram of Sample Means")
+g2 + stat_function(
+fun = dnorm,
+colour = "magenta",
+args = list(mean = t_mean,
+sd = sqrt(t_var)))
+e_df %>% ggplot(aes(
+sample=MEAN)) +
+stat_qq() +
+stat_qq_line(color="blue") +
+labs(x="Theoretical Quantile",
+y="Sample Quantiles",
+title = "Quantile - Quantile Plot")
+hcDf <- as.data.frame(expoDis)
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1
+y <- hcDf$V2
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1
+y <- hcDf$V2
+plot(x,y, col = "blue", alpha=.05)
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1
+y <- hcDf$V2
+plot(x,y, col = "blue", alpha(.05))
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1
+y <- hcDf$V2
+plot(x,y, col = "blue")
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1
+y <- hcDf$V2
+plot(x,y, col = "blue")
+test(x+.05, y+.05, as.character(1:30))
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1
+y <- hcDf$V2
+plot(x,y, col = "blue")
+test(x+.05, y+.05, as.character(1:1000))
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1
+y <- hcDf$V2
+plot(x,y, col = "blue")
+test(x+.05, y+.05, as.character(1:12))
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1
+y <- hcDf$V2
+plot(x,y, col = "blue")
+text(x+.05, y+.05, as.character(1:12))
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1
+y <- hcDf$V2
+plot(x,y, col = "blue")
+text(x+.05, y+.05, as.character(1:2000))
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1[1:30]
+y <- hcDf$V2[1:30]
+plot(x,y, col = "blue")
+text(x+.05, y+.05, as.character(1:2000))
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1[1:30]
+y <- hcDf$V2[1:30]
+plot(x,y, col = "blue")
+text(x+.05, y+.05, as.character(1:60))
+dataframe <- data.frame(x=x, y=y)
+dist(dataframe)
+rdistxy <- as.matrix(dist(dataframe))
+diag(rdistxy) <- diag(rdistxy) +100000
+ind <- which(rdistrxy == min(rdistxy), arr.ind = TRUE)
+rdistxy <- as.matrix(dist(dataframe))
+diag(rdistxy) <- diag(rdistxy) +100000
+ind <- which(rdistrxy == min(rdistrxy), arr.ind = TRUE)
+rdistxy <- as.matrix(dist(dataframe))
+diag(rdistxy) <- diag(rdistxy) +100000
+ind <- which(rdistxy == min(rdistxy), arr.ind = TRUE)
+ind
+plot(x,y, col = "blue", pch = 19, cex =2)
+rdistxy <- as.matrix(dist(dataframe))
+## remove the diagonal from consideration
+diag(rdistxy) <- diag(rdistxy) +100000
+# Find the index of the points with minimum distance
+ind <- which(rdistxy == min(rdistxy), arr.ind = TRUE)
+ind
+plot(x,y, col = "blue", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:12))
+x <- rnorm(12, rep(1:3, each = 4), 0.2)
+x
+head(dist(dataframe))
+dataframe <- data.frame(x=x, y=y)
+dataframe <- data.frame(x=x, y=y)
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1[1:30]
+y <- hcDf$V2[1:30]
+plot(x,y, col = "blue")
+text(x+.05, y+.05, as.character(1:60))
+dataframe <- data.frame(x=x, y=y)
+head(dist(dataframe),n=6)
+dataframe <- data.frame(x=x, y=y)
+head(dist(dataframe),n=30)
+dataframe <- data.frame(x=x, y=y)
+head(dist(dataframe),n=1:10)
+dataframe <- data.frame(x=x, y=y)
+head(dist(dataframe),nrow=1:10)
+dataframe <- data.frame(x=x, y=y)
+head(dist(dataframe),nrow=10)
+dataframe <- data.frame(x=x, y=y)
+head(dist(dataframe),nrow=10)
+dataframe <- data.frame(x=x, y=y)
+head(dist(dataframe),row=10)
+dist(dataframe)
+dataframe <- data.frame(x=x, y=y)
+print(dist(dataframe), nrow=10)
+dataframe <- data.frame(x=x, y=y)
+print(dist(dataframe), nrow=10)
+dataframe <- data.frame(x=x, y=y)
+print(dist(dataframe), nrow=5)
+dataframe <- data.frame(x=x, y=y)
+print(dist(dataframe), row=5)
+?print
+dataframe <- data.frame(x=x, y=y)
+?print(dist(dataframe), max.level=5)
+print(dist(dataframe), max.level=5)
+nrow(dist(dataframe), 10)
+dataframe <- data.frame(x=x, y=y)
+dist(dataframe), n=10 )
+head(dist(dataframe), n=50)
+dataframe <- data.frame(x=x, y=y)
+d<-dist(dataframe)
+dataframe <- data.frame(x=x, y=y)
+d<-dist(dataframe)
+d[1:30,]
+d[1:30,]
+d[1:30,]
+d
+class(d)
+d[1:6,]
+d[1:6,1:6]
+text(x+.05, y+.05, labels=as.character(1:30))
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="orange", pch =19, cex=2)
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="orange", pch =19, cex=2)
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+library(tidyverse)
+library(glue)
+library(matrixStats)
+downloadDate <- date()
+glue("Simulation date is {downloadDate}")
+sessionInfo()
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+par(mfrow = c(1,2))
+hcluster <- dist(dataframe) %>% hclust
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+par(mfrow = c(1,2))
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+par(mfrow = c(1,2))
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+dendro <- as.dendrogram(hcluster)
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+cutDendro <-cut(dendro, h=hcluster$height[1]+.00001)
+plot(cutDendro$lower[[11]], yaxt = "n", main ="Begin building tree")
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+cutDendro <-cut(dendro, h=hcluster$height[1]+.001)
+plot(cutDendro$lower[[11]], yaxt = "n", main ="Begin building tree")
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+cutDendro <-cut(dendro, h=hcluster$height[1])
+plot(cutDendro$lower[[11]], yaxt = "n", main ="Begin building tree")
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+cutDendro <-cut(dendro, h=hcluster$height[2])
+plot(cutDendro$lower[[11]], yaxt = "n", main ="Begin building tree")
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+cutDendro <-cut(dendro, h=hcluster$height[2])
+plot(cutDendro$lower[[11]], yaxt = "n", main ="Begin building tree")
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+cutDendro <-cut(dendro, h=hcluster$height[2])
+plot(cutDendro$lower[[11]], yaxt = "n", main ="Begin building tree")
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+?plot

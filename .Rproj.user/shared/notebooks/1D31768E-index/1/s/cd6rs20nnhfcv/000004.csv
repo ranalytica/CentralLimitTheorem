@@ -1,0 +1,4 @@
+"0","e_df <- e_df %>% mutate("
+"0","        VarCumu = cumsum((MEAN - e_mean)^2)/seq_along(MEAN-1))"
+"0",""
+"0","head(e_df)"

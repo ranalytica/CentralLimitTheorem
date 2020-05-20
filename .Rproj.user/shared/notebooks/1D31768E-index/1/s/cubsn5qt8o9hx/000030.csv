@@ -1,0 +1,2 @@
+"0","points(x[ind[1,]], y[ind[1,]], col=""purple"", pch =19, cex=2, alpha = .05)"
+"2","""alpha"" is not a graphical parameter"

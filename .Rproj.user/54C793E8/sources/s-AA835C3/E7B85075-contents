@@ -1,0 +1,219 @@
+---
+title: "Exponential Distribution vs. Central Limit Theorem"
+author: "Richard Nacianceno"
+date: "5/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Environment
+
+![Github](./Octocat.png) [view mycode](https://github.com/ranalytica/CentralLimitTheorem){target="_blank"}
+```{r Envir, message=FALSE}
+library(tidyverse)
+library(glue)
+library(matrixStats)
+library(scales)
+downloadDate <- date()
+
+glue("Simulation date is {downloadDate}")
+sessionInfo()
+```
+
+### About
+
+In this project we will investigate the exponential distribution in R and compare it with the Central Limit Theorem. The exponential distribution can be simulated in R with rexp(n, lambda) where lambda is the rate parameter. The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. Set lambda = 0.2 for all of the simulations. We will investigate the distribution of averages of 40 exponentials. Note that you will need to do a thousand simulations. 
+
+Illustrate via simulation and associated explanatory text the properties of the distribution of the mean of 40 exponentials. You should
+
+1. Show the sample mean and compare it to the theoretical mean of the distribution.
+
+2. Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.
+
+3. Show that the distribution is approximately normal.
+
+#### Simulation
+
+The exponential distribution can be simulated in R with rexp(n, lambda) where lambda is the rate parameter. The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. Set lambda = 0.2 for all of the simulations. We will investigate the distribution of averages of 40 exponentials.
+
+```{r SimulationDatasets}
+set.seed(420) # random number generator set at 420
+lambda <- .2 
+sampCol <- 40 # number of variables
+sampRow <- 1000  # number of observations
+
+expoDis <- matrix(rexp(n=sampRow*sampCol, rate = lambda), sampRow, sampCol)
+
+expoDF <- as.data.frame(expoDis)
+# Converted it to a tibble to make it easier to visualize
+
+e_df <- expoDF %>% mutate(
+        "MEAN" = rowMeans(expoDis), 
+        "SD" = rowSds(expoDis), 
+        "SumCumu" = cumsum(MEAN)/(1:sampRow)) %>% 
+        select(MEAN, SD, SumCumu)
+
+head(e_df)
+```
+
+#### Sample mean vs. the theoretical mean of the distribution.
+
+```{r E_mean vs T_mean}
+e_mean <- mean(e_df$MEAN)
+
+t_mean <- 1/lambda
+
+res_df <- tibble(
+        Result = c("Sample means", "Theoretical mean"),
+        "Mean"=c(e_mean, t_mean))
+
+res_df
+```
+
+**Above**, the sample mean is `r e_mean` is close to the CLT mean of `r t_mean`. The graph **below** shows the cumulative sum of the sample mean approaching the horizontal line valuing at 1/lambda which is our theoritcal mean.  
+
+```{r expo vs Theo}
+ggplot(data = e_df, aes(x = 1:sampRow, y = SumCumu)) + 
+        geom_hline(yintercept = t_mean, col = "red") +
+        geom_line(size = .5) + 
+        labs(x = "Number of obs", 
+             y = "Cumulative mean", 
+             title = "Sample Means of 1000 Observations and 40 Variables") +
+        geom_text(aes(0,t_mean,
+             label = "theoretical mean = 1/lambda", 
+             hjust = -1, 
+             vjust =-1)) + 
+        ylim(c(3.5,5.5))
+
+```
+
+#### Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.
+
+```{r Cumulative Variance}
+e_df <- e_df %>% mutate(
+        VarCumu = cumsum((MEAN - e_mean)^2)/seq_along(MEAN-1))
+
+head(e_df)
+```
+
+
+```{r e_var vs t_var}
+e_var <- var(e_df$MEAN)
+t_var <- (1/(lambda*sqrt(sampCol)))^2
+
+res_var_df <- tibble(
+        Result = c("Sample variance", "Theoretical variance"), 
+        "Variance" = c(e_var, t_var))
+
+res_var_df
+```
+
+
+```{r graph variance}
+ggplot(data=e_df, 
+          aes(x = 1:sampRow, 
+              y = VarCumu))+ 
+          geom_hline(yintercept = t_var, 
+              col="red") + 
+          geom_line(size = .5) + 
+          labs(x = "Number of Observations", 
+               y = "Cumulative Variance", 
+               title = "Sample Variances of 1000 Observations and 40 Variables")
+```
+
+#### Normally Distributed
+
+Note:
+
+Using [Freedman-Diaconis](https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconis_rule) rule to select the width of the bins inside a histogram.  
+
+```{r error=TRUE}
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+
+g2 <- ggplot(data = e_df, 
+             aes(x=MEAN)) 
+
+g2 <- g2 + geom_histogram(aes(y=..density..),
+        fill="white", 
+        col="black",
+        breaks =binhist$breaks) + 
+      geom_density(
+        aes(MEAN), 
+        color = "blue") + 
+      geom_vline(
+        xintercept = c(e_mean, t_mean), 
+        color = c("red", "yellow")) + 
+      labs(
+        x= "Sample Means", 
+        y= "Density", 
+        title = "Histogram of Sample Means")
+
+g2 + stat_function(
+      fun = dnorm, 
+      colour = "magenta", 
+      args = list(mean = t_mean, 
+                  sd = sqrt(t_var)))
+```
+
+```{r}
+e_df %>% ggplot(aes(
+            sample=MEAN)) +   
+            stat_qq() + 
+            stat_qq_line(color="blue") + 
+            labs(x="Theoretical Quantile", 
+                 y="Sample Quantiles", 
+                 title = "Quantile - Quantile Plot")
+```
+
+#### Hierarchical Clustering
+
+```{r}
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1[1:30]
+y <- hcDf$V2[1:30]
+plot(x,y, col = "blue")
+text(x+.05, y+.05, as.character(1:60))
+```
+
+```{r}
+dataframe <- data.frame(x=x, y=y)
+
+d<-dist(dataframe)
+d
+```
+
+
+```{r}
+rdistxy <- as.matrix(dist(dataframe))
+
+## remove the diagonal from consideration
+diag(rdistxy) <- diag(rdistxy) +100000
+
+# Find the index of the points with minimum distance
+ind <- which(rdistxy == min(rdistxy), arr.ind = TRUE)
+
+ind
+```
+Plot two points closest together and draw a tree to merge these two points
+```{r}
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="purple", pch =19, cex=2, alpha = .05)
+
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+cutDendro <-cut(dendro, h=hcluster$height[2])
+plot(cutDendro$lower[[11]], yaxt = "n", main ="Begin building tree")
+```
+
+Draw a treen to merge these two points
+```{r}
+
+plot(x,y, col ="yellow", pc = 19, cex =2, main = "Data"
+     )
+```
+

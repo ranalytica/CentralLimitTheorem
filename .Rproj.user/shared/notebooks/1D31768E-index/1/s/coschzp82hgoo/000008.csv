@@ -1,0 +1,1 @@
+"0","text(x+.05, y+.05, as.character(1:60))"

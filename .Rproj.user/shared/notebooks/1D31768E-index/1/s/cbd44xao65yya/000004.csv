@@ -1,0 +1,8 @@
+"0","e_var <- var(e_df$MEAN)"
+"0","t_var <- (1/(lambda*sqrt(sampCol)))^2"
+"0",""
+"0","res_var_df <- tibble("
+"0","        Result = c(""Sample variance"", ""Theoretical variance""), "
+"0","        ""Variance"" = c(e_var, t_var))"
+"0",""
+"0","res_var_df"
