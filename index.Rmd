@@ -64,23 +64,21 @@ res_df
 **Above**, the sample mean is `r e_mean` is close to the CLT mean of `r t_mean`. The graph **below** shows the cumulative sum of the sample mean approaching the horizontal line valuing at 1/lambda which is our theoritcal mean.  
 
 ```{r expo vs Theo}
-ggplot(data=e_df, aes(x = 1:sampRow, y = SumCumu))+ geom_hline(yintercept = t_mean, col="red") +
-geom_line(size = .5) + labs(x = "Number of obs", y = "Cumulative mean", title = "Sample Means of 1000 Observation and 40 Variables")
-
+ggplot(data = e_df, aes(x = 1:sampRow, y = SumCumu)) + 
+        geom_hline(yintercept = t_mean, col = "red") +
+        geom_line(size = .5) + 
+        labs(x = "Number of obs", 
+             y = "Cumulative mean", 
+             title = "Sample Means of 1000 Observation and 40 Variables") +
+        geom_text(aes(0,t_mean,
+             label = "theoretical mean = 1/lambda", 
+             hjust = -1, 
+             vjust =-1)) + 
+        ylim(c(3.5,5.5))
 
 ```
 
-Notes:
-
-Using [Freedman-Diaconis](https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconis_rule) rule to select the width of the bins inside a histogram.  
-
-```{r error=TRUE}
-binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
-g2 <- ggplot(data = e_df, aes(x=MEAN,y=..density..)) 
-g2 + geom_histogram(fill="white", col="black",breaks =binhist$breaks)+geom_density(aes(MEAN), color = "blue")+geom_vline(xintercept = c(e_mean, t_mean), color = c("red", "yellow")) + labs(x= "Sample Means", y= "Density", title = "Histogram of Sample Means")
-```
-
-#### Variable the sample is (via variance) vs. the theoretical variance of the distribution.
+### Variable the sample is (via variance) vs. the theoretical variance of the distribution.
 
 ```{r e_var vs t_var}
 e_df <- e_df %>% mutate(VarCumu = cumsum((MEAN - e_mean)^2)/seq_along(MEAN-1))
@@ -94,5 +92,35 @@ ggplot(data=e_df, aes(x = 1:sampRow, y = VarCumu))+ geom_hline(yintercept = t_va
 geom_line(size = .5) + labs(x = "Number of Observations", y = "Cumulative Variance", title = "Sample Variance of 1000 Observation and 40 Variables")
 ```
 
+### Normally Distributed
 
+Notes:
+
+Using [Freedman-Diaconis](https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconis_rule) rule to select the width of the bins inside a histogram.  
+
+```{r error=TRUE}
+binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
+g2 <- ggplot(data = e_df, aes(x=MEAN)) 
+
+g2 <- g2 + geom_histogram(aes(y=..density..),
+        fill="white", 
+        col="black",
+        breaks =binhist$breaks) + 
+      geom_density(
+        aes(MEAN), 
+        color = "blue") + 
+      geom_vline(
+        xintercept = c(e_mean, t_mean), 
+        color = c("red", "yellow")) + 
+      labs(
+        x= "Sample Means", 
+        y= "Density", 
+        title = "Histogram of Sample Means")
+
+g2 +stat_function(fun = dnorm, colour = "magenta", args = list(mean = t_mean, sd = sqrt(t_var)))
+```
+
+```{r}
+e_df %>% ggplot(aes(sample=MEAN))+stat_qq()+stat_qq_line(color="blue")+labs(x="Theoretical Quantile", y="Sample Quantiles", main = "Normal Probability Plot")
+```
 
