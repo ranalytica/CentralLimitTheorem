@@ -1,0 +1,7 @@
+"0","e_df %>% ggplot(aes("
+"0","            sample=MEAN)) +   "
+"0","            stat_qq() + "
+"0","            stat_qq_line(color=""blue"") + "
+"0","            labs(x=""Theoretical Quantile"", "
+"0","                 y=""Sample Quantiles"", "
+"0","                 title = ""Quantile - Quantile Plot"")"

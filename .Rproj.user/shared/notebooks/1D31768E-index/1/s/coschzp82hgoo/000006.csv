@@ -1,0 +1,4 @@
+"0","hcDf <- as.data.frame(expoDis)"
+"0","x <- hcDf$V1[1:30]"
+"0","y <- hcDf$V2[1:30]"
+"0","plot(x,y, col = ""blue"")"

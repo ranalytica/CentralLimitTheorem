@@ -1,0 +1,2 @@
+"0","par(mfrow = c(1,2))"
+"0","plot(x,y, col = ""yellow"", pch = 19, cex =2, main=""Data"")"
