@@ -167,5 +167,50 @@ e_df %>% ggplot(aes(
                  title = "Quantile - Quantile Plot")
 ```
 
+#### Hierarchical Clustering
 
+```{r}
+hcDf <- as.data.frame(expoDis)
+x <- hcDf$V1[1:30]
+y <- hcDf$V2[1:30]
+plot(x,y, col = "blue")
+text(x+.05, y+.05, as.character(1:60))
+```
+
+```{r}
+dataframe <- data.frame(x=x, y=y)
+
+d<-dist(dataframe)
+d
+```
+
+
+```{r}
+rdistxy <- as.matrix(dist(dataframe))
+
+## remove the diagonal from consideration
+diag(rdistxy) <- diag(rdistxy) +100000
+
+# Find the index of the points with minimum distance
+ind <- which(rdistxy == min(rdistxy), arr.ind = TRUE)
+
+ind
+```
+Plot two points closest together and draw a tree to merge these two points
+```{r}
+par(mfrow = c(1,2))
+plot(x,y, col = "yellow", pch = 19, cex =2)
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+```
+
+Draw a treen to merge these two points
+```{r}
+
+plot(x,y, col ="yellow", pc = 19, cex =2, main = "Data"
+     )
+```
 
