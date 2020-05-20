@@ -49,16 +49,26 @@ expoDis <- matrix(rexp(n=sampRow*sampCol, rate = lambda), sampRow, sampCol)
 expoDF <- as.data.frame(expoDis)
 # Converted it to a tibble to make it easier to visualize
 
-e_df <- expoDF %>% mutate("MEAN" = rowMeans(expoDis), "SD" = rowSds(expoDis), "SumCumu" = cumsum(MEAN)/(1:sampRow)) %>% select(MEAN, SD, SumCumu)
+e_df <- expoDF %>% mutate(
+        "MEAN" = rowMeans(expoDis), 
+        "SD" = rowSds(expoDis), 
+        "SumCumu" = cumsum(MEAN)/(1:sampRow)) %>% 
+        select(MEAN, SD, SumCumu)
+
 head(e_df)
 ```
 
-#### 1. Sample mean vs. the theoretical mean of the distribution.
+#### Sample mean vs. the theoretical mean of the distribution.
 
 ```{r E_mean vs T_mean}
 e_mean <- mean(e_df$MEAN)
+
 t_mean <- 1/lambda
-res_df <- tibble(Result = c("Sample means", "Theoretical mean"),"Mean"=c(e_mean, t_mean))
+
+res_df <- tibble(
+        Result = c("Sample means", "Theoretical mean"),
+        "Mean"=c(e_mean, t_mean))
+
 res_df
 ```
 
@@ -81,16 +91,37 @@ ggplot(data = e_df, aes(x = 1:sampRow, y = SumCumu)) +
 
 ### Variable the sample is (via variance) vs. the theoretical variance of the distribution.
 
+```{r Cumulative Variance}
+e_df <- e_df %>% mutate(
+        VarCumu = cumsum((MEAN - e_mean)^2)/seq_along(MEAN-1))
+
+head(e_df)
+```
+
+
 ```{r e_var vs t_var}
-e_df <- e_df %>% mutate(VarCumu = cumsum((MEAN - e_mean)^2)/seq_along(MEAN-1))
 e_var <- var(e_df$MEAN)
 t_var <- (1/(lambda*sqrt(sampCol)))^2
-res_var_df <- tibble(Result = c("Sample variance", "Theoretical variance"),"Variance"=c(e_var, t_var))
+
+res_var_df <- tibble(
+        Result = c("Sample variance", "Theoretical variance"), 
+        "Variance" = c(e_var, t_var))
+
 res_var_df
 ```
+
+
 ```{r graph variance}
-ggplot(data=e_df, aes(x = 1:sampRow, y = VarCumu))+ geom_hline(yintercept = t_var, col="red") +
-geom_line(size = .5) + labs(x = "Number of Observations", y = "Cumulative Variance", title = "Sample Variance of 1000 Observation and 40 Variables")
+ggplot(data=e_df, 
+          aes(x = 1:sampRow, 
+              y = VarCumu))+ 
+          geom_hline(yintercept = t_var, 
+              col="red") + 
+          geom_line(size = .5) + 
+          labs(x = "Number of Observations", 
+               y = "Cumulative Variance", 
+               title = "Sample Variance of 1000 Observation 
+               and 40 Variables")
 ```
 
 ### Normally Distributed
@@ -101,7 +132,9 @@ Using [Freedman-Diaconis](https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconi
 
 ```{r error=TRUE}
 binhist <- hist(e_df$MEAN, plot=FALSE, breaks = "FD")
-g2 <- ggplot(data = e_df, aes(x=MEAN)) 
+
+g2 <- ggplot(data = e_df, 
+             aes(x=MEAN)) 
 
 g2 <- g2 + geom_histogram(aes(y=..density..),
         fill="white", 
@@ -118,10 +151,20 @@ g2 <- g2 + geom_histogram(aes(y=..density..),
         y= "Density", 
         title = "Histogram of Sample Means")
 
-g2 +stat_function(fun = dnorm, colour = "magenta", args = list(mean = t_mean, sd = sqrt(t_var)))
+g2 + stat_function(
+      fun = dnorm, 
+      colour = "magenta", 
+      args = list(mean = t_mean, 
+                  sd = sqrt(t_var)))
 ```
 
 ```{r}
-e_df %>% ggplot(aes(sample=MEAN))+stat_qq()+stat_qq_line(color="blue")+labs(x="Theoretical Quantile", y="Sample Quantiles", title = "Quantile - Quantile Plot")
+e_df %>% ggplot(aes(
+            sample=MEAN)) +   
+            stat_qq() + 
+            stat_qq_line(color="blue") + 
+            labs(x="Theoretical Quantile", 
+                 y="Sample Quantiles", 
+                 title = "Quantile - Quantile Plot")
 ```
 
