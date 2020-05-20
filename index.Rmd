@@ -120,8 +120,7 @@ ggplot(data=e_df,
           geom_line(size = .5) + 
           labs(x = "Number of Observations", 
                y = "Cumulative Variance", 
-               title = "Sample Variance of 1000 Observation 
-               and 40 Variables")
+               title = "Sample Variance of 1000 Observation and 40 Variables")
 ```
 
 ### Normally Distributed
