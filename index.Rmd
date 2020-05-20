@@ -80,7 +80,7 @@ ggplot(data = e_df, aes(x = 1:sampRow, y = SumCumu)) +
         geom_line(size = .5) + 
         labs(x = "Number of obs", 
              y = "Cumulative mean", 
-             title = "Sample Means of 1000 Observation and 40 Variables") +
+             title = "Sample Means of 1000 Observations and 40 Variables") +
         geom_text(aes(0,t_mean,
              label = "theoretical mean = 1/lambda", 
              hjust = -1, 
@@ -120,12 +120,12 @@ ggplot(data=e_df,
           geom_line(size = .5) + 
           labs(x = "Number of Observations", 
                y = "Cumulative Variance", 
-               title = "Sample Variance of 1000 Observation and 40 Variables")
+               title = "Sample Variances of 1000 Observations and 40 Variables")
 ```
 
 ### Normally Distributed
 
-Notes:
+Note:
 
 Using [Freedman-Diaconis](https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconis_rule) rule to select the width of the bins inside a histogram.  
 
