@@ -199,9 +199,9 @@ ind
 Plot two points closest together and draw a tree to merge these two points
 ```{r}
 par(mfrow = c(1,2))
-plot(x,y, col = "yellow", pch = 19, cex =2, main="Data", alpha=.05)
+plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
 text(x+.05, y+.05, labels=as.character(1:30))
-points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2, alpha=.5)
 
 hcluster <- dist(dataframe) %>% hclust
 dendro <- as.dendrogram(hcluster)
