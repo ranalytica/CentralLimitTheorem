@@ -169,19 +169,19 @@ e_df %>% ggplot(aes(
 
 #### Hierarchical Clustering
 
+Explore the data with hcluster. 
 ```{r}
 hcDf <- as.data.frame(expoDis)
-x <- hcDf$V1[1:30]
-y <- hcDf$V2[1:30]
+x <- hcDf$V1[1:100]
+y <- hcDf$V2[1:100]
 plot(x,y, col = "blue")
-text(x+.05, y+.05, as.character(1:60))
+text(x+.05, y+.05, as.character(1:100))
 ```
 
 ```{r}
 dataframe <- data.frame(x=x, y=y)
 
 d<-dist(dataframe)
-d
 ```
 
 
@@ -200,33 +200,50 @@ Plot two points closest together and draw a tree to merge these two points
 ```{r}
 par(mfrow = c(1,2))
 plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
-text(x+.05, y+.05, labels=as.character(1:60))
-points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
-
-hcluster <- dist(dataframe) %>% hclust
-dendro <- as.dendrogram(hcluster)
-cutDendro <-cut(dendro, h=hcluster$height[2])
-plot(cutDendro$lower[[12]], yaxt = "n", main ="Begin building tree")
-g
-```
-
-Continue building the tree
-```{r}
-
-nextmin <- rdistxy[order(rdistxy)][3]
-ind <- which(rdistxy==nextmin,arr.ind = TRUE)
-ind
-
-par(mfrow = c(1,3))
-plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
 text(x+.05, y+.05, labels=as.character(1:30))
 points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2)
 
 hcluster <- dist(dataframe) %>% hclust
 dendro <- as.dendrogram(hcluster)
 cutDendro <-cut(dendro, h=hcluster$height[2])
-plot(cutDendro$lower[[12]], yaxt = "n", main ="Begin building tree")
-plot(cutDendro$lower[[14]], yaxt = "n", main ="Begin building tree")
-as.data.frame(x,y)
+
+plot(cutDendro$lower[[63]], yaxt = "n", main ="Begin building tree")
+
+```
+
+Continue building the tree. Below code will provide us the next min distance. 
+```{r}
+nextmin <- rdistxy[order(rdistxy)][3]
+ind1 <- which(rdistxy==nextmin,arr.ind = TRUE)
+ind1
+```
+
+
+```{r}
+par(mfrow = c(1,3))
+plot(x,y, col = "yellow", pch = 19, cex =2, main="Data")
+text(x+.05, y+.05, labels=as.character(1:30))
+points(x[ind[1,]], y[ind[1,]], col="green", pch =19, cex=2);
+points(x[ind1[1,]], y[ind1[1,]], col="red", pch =19, cex=2)
+
+hcluster <- dist(dataframe) %>% hclust
+dendro <- as.dendrogram(hcluster)
+cutDendro <-cut(dendro, h=hcluster$height[2])
+plot(cutDendro$lower[[63]], yaxt = "n", main ="Begin building tree")
+plot(cutDendro$lower[[78]], yaxt = "n", main ="Begin building tree")
+```
+
+Practicing Cluster Dendogram.  
+```{r}
+hclustering <- data.frame(x=x, y=y) %>% dist %>% hclust
+plot(hclustering)
+```
+#### Heatmap function
+
+Still having fun with data.  
+
+```{r}
+dataMatrix <- data.frame(x=x,y=y) %>% data.matrix
+heatmap(dataMatrix)
 ```
 
