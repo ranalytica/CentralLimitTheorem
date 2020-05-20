@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Environment
 
+![Github](./Octocat.png) [view mycode](https://github.com/ranalytica/CentralLimitTheorem){target="_blank"}
 ```{r Envir, message=FALSE}
 library(tidyverse)
 library(glue)
@@ -121,6 +122,6 @@ g2 +stat_function(fun = dnorm, colour = "magenta", args = list(mean = t_mean, sd
 ```
 
 ```{r}
-e_df %>% ggplot(aes(sample=MEAN))+stat_qq()+stat_qq_line(color="blue")+labs(x="Theoretical Quantile", y="Sample Quantiles", main = "Normal Probability Plot")
+e_df %>% ggplot(aes(sample=MEAN))+stat_qq()+stat_qq_line(color="blue")+labs(x="Theoretical Quantile", y="Sample Quantiles", title = "Quantile - Quantile Plot")
 ```
 
